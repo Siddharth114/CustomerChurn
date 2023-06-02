@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
-import preprocessing
+from data_preprocessing import preprocess
 import joblib
 
 model = joblib.load(r"/Users/siddharth/Code/Python/CustomerChurn/logistic_regression_customer_churn_classification.sav")
@@ -33,8 +33,8 @@ def main():
         contract = st.radio('Type of contract', ('Month-to-month', 'One year', 'Two year'))
         paperlessbilling = st.radio('Has the customer opted for paperless billing?', ('Yes', 'No'))
         PaymentMethod = st.radio('What is the customer\'s method of payment',('Electronic check', 'Mailed check', 'Bank transfer (automatic)','Credit card (automatic)'))
-        monthlycharges = st.slider('How much is the customer charged monthly?', min_value=0, max_value=150, value=0)
-        totalcharges = st.slider('How much has the customer been charged totally?',min_value=0, max_value=10000, value=0)
+        monthlycharges = st.number_input('How much is the customer charged monthly?', min_value=0, max_value=150, value=0)
+        totalcharges = st.number_input('How much has the customer been charged totally?',min_value=0, max_value=10000, value=0)
 
         st.subheader("Opted-in services")
         phoneservice = st.radio('Does the customer have phone service?', ('Yes', 'No'))
@@ -65,7 +65,21 @@ def main():
                 'TotalCharges': totalcharges
                 }
         
+        input_features_df = pd.DataFrame.from_dict([input_data])
+        st.header('Details of the customer are shown below')
+        st.dataframe(input_features_df)
+
+        preprocess_df = preprocess(input_features_df)
+
+        prediction = model.predict(preprocess_df)
+
+        if st.button('Predict'):
+            if prediction==1:
+                st.warning('The customer will leave the company.')
+            else:
+                st.success('The customer will not leave the company.')
 
 
 
-main()
+if __name__=='__main__':
+    main()
