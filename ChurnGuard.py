@@ -8,21 +8,22 @@ import joblib
 model = joblib.load(r"/Users/siddharth/Code/Python/CustomerChurn/logistic_regression_customer_churn_classification.sav")
 
 def main():
-    st.title('ChurnGuard: Unveiling the Crystal Ball for Customer Retention')
-
-    st.markdown('''Are you tired of losing valuable customers and revenue? Introducing our revolutionary churn prediction model powered by
-      advanced machine learning algorithms. By analyzing the details of a customer, our model accurately forecasts whether a customer is likely to churn.''')
-    st.markdown('''Stay one step ahead of customer attrition and take proactive measures to retain your valuable clientele.
-      With our model, you can identify potential churners and implement targeted retention strategies, 
-      boosting customer satisfaction and maximizing your business's bottom line. ''')
-    
-    st.image(Image.open('img.jpeg'))
     add_radio = st.sidebar.radio(
         'Navigation',
         ("Home", 'About the model', "Contact")
     )
+    st.sidebar.image(Image.open('img.jpeg'))
 
     if add_radio=='Home':
+        st.title('ChurnGuard: Unveiling the Crystal Ball for Customer Retention')
+
+        st.markdown('''Are you tired of losing valuable customers and revenue? Introducing our revolutionary churn prediction model powered by
+        advanced machine learning algorithms. By analyzing the details of a customer, our model accurately forecasts whether a customer is likely to churn.''')
+        st.markdown('''Stay one step ahead of customer attrition and take proactive measures to retain your valuable clientele.
+        With our model, you can identify potential churners and implement targeted retention strategies, 
+        boosting customer satisfaction and maximizing your business's bottom line. ''')
+        
+
         st.header('Insert client information below')
         
         st.subheader("Demographic information")
@@ -92,10 +93,29 @@ def main():
                 st.success('Our model predicts that the customer is unlikely to leave the company.')
 
     elif add_radio=='About the model':
-        pass
+        st.title('About the model')
+
+        st.markdown('''This potent machine learning system, created to solve the problem of customer attrition, makes use of categorical 
+        client data, including demographics (age, gender, partner, dependents), financial information (monthly charges, total charges, billing method), 
+        and service preferences (internet services, phone lines, TV/movie streaming). We carefully examine the distribution of 
+        churn rates across various variables by thoroughly exploring the dataset.''')
+        st.divider()
+        st.markdown('''We use preprocessing procedures to get the data ready for analysis, transforming appropriate columns
+          into numeric types and making sure categorical feature names are clear and consistent. ''')
+        st.divider()
+        st.markdown(''' Next, we employ a generalized linear model to model the relationship between customer characteristics and churn probability.
+        The model determines the importance of each variable, highlighting those that have a significant impact on churn rates, using their p-values.''')
+
+
+
+        st.markdown('[Read More](https://github.com/Siddharth114/CustomerChurn/blob/master/main.ipynb)')
 
     else:
-        pass
+        st.title('Contact')
+        st.header('Reach out to the creator')
+        st.subheader('Email - 2004sid@gmail.com')
+        st.subheader('[Github](https://github.com/Siddharth114)')
+        st.subheader('[LinkedIn](https://www.linkedin.com/in/siddharth-m-s-566aa71b6/)')
 
 
 if __name__=='__main__':
