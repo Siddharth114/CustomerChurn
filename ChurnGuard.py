@@ -18,35 +18,46 @@ def main():
     
     st.image(Image.open('img.jpeg'))
     add_radio = st.sidebar.radio(
-        'Page:',
-        ("Home", "Contact")
+        'Navigation',
+        ("Home", 'About the model', "Contact")
     )
 
     if add_radio=='Home':
         st.header('Insert client information below')
+        
         st.subheader("Demographic information")
-        seniorcitizen = st.radio('Is the customer a senior citizen (>65 years of age)?', ('Yes', 'No'))
+        seniorcitizen = st.radio('Is the customer a Senior Citizen (>65 years of age)?', ('Yes', 'No'))
         dependents = st.radio('Does the customer have dependents who use the company\'s services?', ('Yes', 'No'))
 
+
         st.subheader("Payment information")
-        tenure = st.slider('How many months has the customer stayed with the company until now?', min_value=0, max_value=72, value=0)
-        contract = st.radio('Type of contract', ('Month-to-month', 'One year', 'Two year'))
-        paperlessbilling = st.radio('Has the customer opted for paperless billing?', ('Yes', 'No'))
-        PaymentMethod = st.radio('What is the customer\'s method of payment',('Electronic check', 'Mailed check', 'Bank transfer (automatic)','Credit card (automatic)'))
-        monthlycharges = st.number_input('How much is the customer charged monthly?', min_value=0, max_value=150, value=0)
-        totalcharges = st.number_input('How much has the customer been charged totally?',min_value=0, max_value=10000, value=0)
+        tenure = st.slider('How many months has the customer stayed with the company so far?', min_value=0, max_value=72, value=0)
+        contract = st.radio('What is the type of contract of the customer?', ('Month-to-month', 'One year', 'Two year'))
+        paperlessbilling = st.radio('Has the customer opted in for paperless billing?', ('Yes', 'No'))
+        PaymentMethod = st.radio('What is the payment method of the customer?',('Electronic check', 'Mailed check', 'Bank transfer (automatic)','Credit card (automatic)'))
+        monthlycharges = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=150, value=0)
+        totalcharges = st.number_input('The total amount charged to the customer',min_value=0, max_value=10000, value=0)
 
         st.subheader("Opted-in services")
         phoneservice = st.radio('Does the customer have phone service?', ('Yes', 'No'))
-        mutliplelines = st.radio("Does the customer have multiple lines?",('Yes','No','The customer has no phone service'))
+        if phoneservice=='Yes':
+            mutliplelines = st.radio("Does the customer have multiple phone lines?",('Yes','No'))
+        else:
+            mutliplelines = 'No phone service'
         internetservice = st.radio("Does the customer have internet service?", ('DSL', 'Fiber optic', 'No'))
-        onlinesecurity = st.radio("Does the customer have online security?",('Yes','No','The customer has no internet service'))
-        onlinebackup = st.radio("Does the customer have online backup?",('Yes','No','The customer has no internet service'))
-        techsupport = st.radio("Has the customer opted for tech support?", ('Yes','No','The customer has no internet service'))
-        streamingtv = st.radio("Does the customer stream television?", ('Yes','No','The customer has no internet service'))
-        streamingmovies = st.radio("Does the customer stream movies?", ('Yes','No','The customer has no internet service'))
-
-        input_data = {
+        if internetservice!='No':
+            onlinesecurity = st.radio("Does the customer have online security?",('Yes','No'))
+            onlinebackup = st.radio("Does the customer have online backup?",('Yes','No'))
+            techsupport = st.radio("Does the customer have technology support?", ('Yes','No'))
+            streamingtv = st.radio("Does the customer stream television?", ('Yes','No'))
+            streamingmovies = st.radio("Does the customer stream movies?", ('Yes','No'))
+        else:
+            onlinebackup = 'No internet service'
+            onlinesecurity = 'No internet service'
+            techsupport = 'No internet service'
+            streamingmovies = 'No internet service'
+            streamingtv = 'No internet service'
+        data = {
                 'SeniorCitizen': seniorcitizen,
                 'Dependents': dependents,
                 'tenure':tenure,
@@ -60,24 +71,25 @@ def main():
                 'StreamingMovies': streamingmovies,
                 'Contract': contract,
                 'PaperlessBilling': paperlessbilling,
-                'PaymentMethod':PaymentMethod,
-                'MonthlyCharges': monthlycharges,
+                'PaymentMethod':PaymentMethod, 
+                'MonthlyCharges': monthlycharges, 
                 'TotalCharges': totalcharges
                 }
-        
-        input_features_df = pd.DataFrame.from_dict([input_data])
-        st.header('Details of the customer are shown below')
-        st.dataframe(input_features_df)
+        features_df = pd.DataFrame.from_dict([data])
+        st.markdown("<h3></h3>", unsafe_allow_html=True)
+        st.subheader('Overview of customer information is shown below')
+        st.markdown("<h3></h3>", unsafe_allow_html=True)
+        st.dataframe(features_df)
 
-        preprocess_df = preprocess(input_features_df)
+        preprocess_df = preprocess(features_df)
 
         prediction = model.predict(preprocess_df)
 
         if st.button('Predict'):
-            if prediction==1:
-                st.warning('The customer will leave the company.')
+            if prediction == 1:
+                st.warning('Our model predicts that the customer is likely to leave the company.')
             else:
-                st.success('The customer will not leave the company.')
+                st.success('Our model predicts that the customer is unlikely to leave the company.')
 
 
 
