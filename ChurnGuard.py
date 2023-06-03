@@ -91,6 +91,11 @@ def main():
             else:
                 st.success('Our model predicts that the customer is unlikely to leave the company.')
 
+    elif add_radio=='About the model':
+        pass
+
+    else:
+        pass
 
 
 if __name__=='__main__':
