@@ -136,7 +136,7 @@ def main():
 
         st.divider()
 
-        st.markdown('''We use a variety of machine learning models, such as logistic regression, decision tree classifier, Gaussian NB,
+        st.markdown('''We use a variety of machine learning models, such as logistic regression, decision tree classifier, Gaussian NB,
           and random forest classifier, using these ideal columns as our starting point. We conclude that logistic regression has greatest 
           precision scores, making it the best option for churn prediction after thorough analysis.''')
         
@@ -154,7 +154,7 @@ def main():
 
         st.divider()
 
-        st.markdown('''We use hyperparameter optimisation to fine-tune the model's performance, maximising accuracy by optimising
+        st.markdown('''We use hyperparameter optimisation to fine-tune the model's performance, maximising accuracy by optimising
           the algorithm's parameters.''')
         
         st.image(Image.open('image assets/final log_reg.jpg'), caption='The final scores of the logistic regression model')
@@ -170,7 +170,6 @@ def main():
         st.subheader('Email - 2004sid@gmail.com')
         st.subheader('[Github](https://github.com/Siddharth114)')
         st.subheader('[LinkedIn](https://www.linkedin.com/in/siddharth-m-s-566aa71b6/)')
-
 
 if __name__=='__main__':
     main()
