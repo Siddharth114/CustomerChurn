@@ -159,9 +159,6 @@ def main():
         
         st.image(Image.open('image assets/final log_reg.jpg'), caption='The final scores of the logistic regression model')
 
-
-
-
         st.markdown('[Read More](https://github.com/Siddharth114/CustomerChurn/blob/master/main.ipynb)')
 
     else:
