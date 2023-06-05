@@ -12,7 +12,7 @@ def main():
         'Navigation',
         ("Home", 'About the model', "Contact")
     )
-    st.sidebar.image(Image.open('img.jpeg'))
+    st.sidebar.image(Image.open('image assets/img.jpeg'))
 
     if add_radio=='Home':
         st.title('ChurnGuard: Unveiling the Crystal Ball for Customer Retention')
@@ -99,12 +99,66 @@ def main():
         client data, including demographics (age, gender, partner, dependents), financial information (monthly charges, total charges, billing method), 
         and service preferences (internet services, phone lines, TV/movie streaming). We carefully examine the distribution of 
         churn rates across various variables by thoroughly exploring the dataset.''')
+
+        st.image(Image.open('image assets/columns.jpg'), caption='The columns of the original dataset')
+
+        st.image(Image.open('image assets/churn distribution.jpg'), caption='Example chart of churn distribution by variable')
+
         st.divider()
+        
         st.markdown('''We use preprocessing procedures to get the data ready for analysis, transforming appropriate columns
-          into numeric types and making sure categorical feature names are clear and consistent. ''')
+          into numeric types and making sure categorical feature names are clear and consistent.
+          Columns such as CustomerID are not required when we apply ML algorithms, so we remove it from the dataset.
+          Further, we transfer categorical features to boolean columns i.e., a column titled \'PhoneService\' which could have the values of \'Yes\' or \'No\'
+          are converted into two columns titled \'PhoneService_Yes\' and \'PhoneService_No\', both of which accept boolean values.
+          This makes it easier for the hyperparameter tuning of the model.''')
+        
+        st.image(Image.open('image assets/column correlation.jpg'), caption='Correlation heatmap of the different columns')
+        
         st.divider()
-        st.markdown(''' Next, we employ a generalized linear model to model the relationship between customer characteristics and churn probability.
-        The model determines the importance of each variable, highlighting those that have a significant impact on churn rates, using their p-values.''')
+        
+        st.markdown(''' Next, we employ a Generalized Linear Model (GLM) to model the relationship between customer characteristics and churn probability.
+        The model determines the importance of each variable, highlighting those that have a significant impact on churn rates, using their p-values.
+        A high p-value denotes an unreliable (insignificant) coefficient, whereas a low p-value indicates a statistically significant coefficient.''')
+
+        st.image(Image.open('image assets/glm results.jpg'), caption='Results of the GLM')
+
+        st.markdown('''The question of feature importances may be answered by looking at the exponential coefficient values.
+                    When one feature is modified by one unit, this number forecasts the change in value of churn.''')
+        
+        st.divider()
+
+        st.markdown('''By using RFECV (Recursive Feature Elimination with Cross Validation), a powerful algorithm that finds the characteristics 
+        with the most influence on the churn classification issue, we advance feature selection. This algorithm gives us the optimal number of columns 
+        required for the classification problem, along with which columns in particular.''')
+
+        st.image(Image.open('image assets/rfecv.jpg'), caption='The most important columns remaining after RFECV')
+
+        st.divider()
+
+        st.markdown('''We use a variety of machine learning models, such as logistic regression, decision tree classifier, Gaussian NB,
+          and random forest classifier, using these ideal columns as our starting point. We conclude that logistic regression has greatest 
+          precision scores, making it the best option for churn prediction after thorough analysis.''')
+        
+        st.image(Image.open('image assets/initial log_reg.jpg'), caption = 'Initial scores of the logistic regression model')
+
+        st.info('''
+        Accuracy score: The fraction of correctly classified samples, on a score from 0 to 1
+
+        Precision score - The ratio of true positives to total positives, on a score from 0 to 1
+
+        Recall score - The ratio of true positives to true positives + false negatives, on a score from 0 to 1
+
+        f1 score - The harmonic mean of precision score and recall score, on a score from 0 to 1
+        ''')
+
+        st.divider()
+
+        st.markdown('''We use hyperparameter optimisation to fine-tune the model's performance, maximising accuracy by optimising
+          the algorithm's parameters.''')
+        
+        st.image(Image.open('image assets/final log_reg.jpg'), caption='The final scores of the logistic regression model')
+
 
 
 
