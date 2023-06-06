@@ -180,3 +180,4 @@ widgetsnbextension==4.0.5
 wrapt==1.14.1
 yfinance==0.2.12
 zipp==3.14.0
+streamlit-option-menu==0.3.6
