@@ -5,7 +5,7 @@ from PIL import Image
 from data_preprocessing import preprocess
 import joblib
 
-model = joblib.load(r"/Users/siddharth/Code/Python/CustomerChurn/logistic_regression_customer_churn_classification.sav")
+model = joblib.load(r"logistic_regression_customer_churn_classification.sav")
 
 def main():
     add_radio = st.sidebar.radio(
