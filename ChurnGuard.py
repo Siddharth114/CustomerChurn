@@ -10,9 +10,8 @@ model = joblib.load(r"logistic_regression_customer_churn_classification.sav")
 
 def main():
 
-    with st.sidebar:
-        nav = option_menu("Navigation", ["Home", 'About the model', 'Contact'], 
-        icons=['house', 'info', 'chat-left'], default_index=0, menu_icon='list')
+    nav = option_menu(None, ["Home", 'About the model', 'Contact'], 
+        icons=['house', 'info', 'chat-left'], default_index=0, menu_icon='list', orientation='horizontal')
 
 
     if nav=='Home':
