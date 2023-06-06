@@ -23,6 +23,7 @@ def main():
         With our model, you can identify potential churners and implement targeted retention strategies, 
         boosting customer satisfaction and maximizing your business's bottom line. ''')
         
+        st.divider()
 
         st.header('Insert client information below')
         
@@ -77,10 +78,15 @@ def main():
                 'TotalCharges': totalcharges
                 }
         features_df = pd.DataFrame.from_dict([data])
-        st.markdown("<h3></h3>", unsafe_allow_html=True)
-        st.subheader('Overview of customer information is shown below')
-        st.markdown("<h3></h3>", unsafe_allow_html=True)
-        st.dataframe(features_df)
+
+        with st.expander('Click here for customer information summary'):
+            st.dataframe(features_df)
+
+
+        # st.markdown("<h3></h3>", unsafe_allow_html=True)
+        # st.subheader('Overview of customer information is shown below')
+        # st.markdown("<h3></h3>", unsafe_allow_html=True)
+        
 
         preprocess_df = preprocess(features_df)
 
