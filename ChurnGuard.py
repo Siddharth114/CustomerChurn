@@ -4,17 +4,18 @@ import numpy as np
 from PIL import Image
 from data_preprocessing import preprocess
 import joblib
+from streamlit_option_menu import option_menu
 
 model = joblib.load(r"logistic_regression_customer_churn_classification.sav")
 
 def main():
-    add_radio = st.sidebar.radio(
-        'Navigation',
-        ("Home", 'About the model', "Contact")
-    )
-    st.sidebar.image(Image.open('image assets/img.jpeg'))
 
-    if add_radio=='Home':
+    with st.sidebar:
+        nav = option_menu("Navigation", ["Home", 'About the model', 'Contact'], 
+        icons=['house', 'info', 'chat-left'], default_index=0, menu_icon='list')
+
+
+    if nav=='Home':
         st.title('ChurnGuard: Unveiling the Crystal Ball for Customer Retention')
 
         st.markdown('''Are you tired of losing valuable customers and revenue? Introducing our revolutionary churn prediction model powered by
@@ -93,7 +94,7 @@ def main():
             else:
                 st.success('Our model predicts that the customer is unlikely to leave the company.')
 
-    elif add_radio=='About the model':
+    elif nav=='About the model':
         st.title('About the model')
 
         st.markdown('''This potent machine learning system, created to solve the problem of customer attrition, makes use of categorical 
