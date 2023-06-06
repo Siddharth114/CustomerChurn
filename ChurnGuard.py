@@ -79,6 +79,8 @@ def main():
                 }
         features_df = pd.DataFrame.from_dict([data])
 
+        st.divider()
+
         with st.expander('Customer information summary'):
             st.dataframe(features_df)
         
