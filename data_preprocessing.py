@@ -1,5 +1,5 @@
 import pandas as pd
-from scikit_learn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler
 
 def preprocess(df):
 
